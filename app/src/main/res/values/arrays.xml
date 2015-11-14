@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="test">j
+        <item>R</item>
+        <item>n</item>
+        <item>p</item>
+    </array>
+    <array name="blogs">
+        <item>Q.R</item>
+        <item>S.D</item>
+        <item>A.N</item>
+    </array>
+    <array name="p">p</array>
+</resources>

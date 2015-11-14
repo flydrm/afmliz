@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/wl_news"
+            android:title="@string/wl_news_text"
+            />
+        <item
+            android:id="@+id/wl_blog"
+            android:title="@string/wl_blog_text"
+            ></item>
+        <item
+            android:id="@+id/wl_soso"
+            android:title="@string/wl_soso_text"
+            />
+        <item
+            android:id="@+id/wl_tools"
+            android:title="@string/wl_tools_text"
+            />
+    </group>
+    <item
+        android:title="@string/wl_social_text"
+        >
+        <menu>
+            <item
+                android:id="@+id/wl_qq"
+                android:title="@string/wl_qq_text"
+                />
+            <item
+                android:id="@+id/wl_weixin"
+                android:title="@string/wl_weixin_text"
+                />
+        </menu>
+    </item>
+</menu>

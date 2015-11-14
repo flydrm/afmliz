@@ -1,0 +1,19 @@
+<resources>
+    <declare-styleable name="nav_config"></declare-styleable>
+    <string name="app_name">FmNews</string>
+    <string name="wl_news_text">新闻</string>
+    <string name="wl_blog_text">博客</string>
+    <string name="wl_soso_text">搜搜</string>
+    <string name="wl_tools_text">工具</string>
+    <string name="wl_social_text">社交</string>
+    <string name="wl_qq_text">QQ</string>
+    <string name="wl_weixin_text">微信</string>
+    <string name="open_nav_drawer">打开导航</string>
+    <string name="close_nav_drawer">关闭导航</string>
+    <string name="wl_search_bar">搜索</string>
+    <string name="wl_share">分享</string>
+
+    <string name="hello_blank_fragment">Hello fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+</resources>
