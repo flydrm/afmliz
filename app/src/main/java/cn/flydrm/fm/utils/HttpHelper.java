@@ -16,7 +16,7 @@ import java.net.URL;
  *//*
 
 public class HttpHelper {
-123
+123 main
 
     public static void get(String url) {
         final String u = url;
