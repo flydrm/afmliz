@@ -3,44 +3,34 @@ package cn.flydrm.fm.fragment;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import cn.flydrm.fm.R;
-import cn.flydrm.fm.adapter.NewsTabAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewsFragment.OnNewsFragmentInteractionListener} interface
+ * {@link NewsMilitaryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewsFragment#newInstance} factory method to
+ * Use the {@link NewsMilitaryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewsFragment extends Fragment {
-
-    private List<Fragment> fragments = new ArrayList<>();
-    private List<String> labs = new ArrayList<>();
-
-
+public class NewsMilitaryFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-
+    private WebView mWebView;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private OnNewsFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     /**
      * Use this factory method to create a new instance of
@@ -48,11 +38,11 @@ public class NewsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewsFragment.
+     * @return A new instance of fragment NewsMilitaryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewsFragment newInstance(String param1, String param2) {
-        NewsFragment fragment = new NewsFragment();
+    public static NewsMilitaryFragment newInstance(String param1, String param2) {
+        NewsMilitaryFragment fragment = new NewsMilitaryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,7 +50,7 @@ public class NewsFragment extends Fragment {
         return fragment;
     }
 
-    public NewsFragment() {
+    public NewsMilitaryFragment() {
         // Required empty public constructor
     }
 
@@ -76,37 +66,25 @@ public class NewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        initFragments();
-
-        //载入viewpager的 tab 栏
-        View view = inflater.inflate(R.layout.fragment_news,null);
-        ViewPager vp = (ViewPager) view.findViewById(R.id.wl_viewpager);
-        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.wl_viewpager_tab);
-        vp.setAdapter(new NewsTabAdapter(getFragmentManager(),fragments,labs));
-        tabLayout.setupWithViewPager(vp);
-        return view;
-    }
-
-    private void initFragments() {
-//        fragments.add(new NewsAmusementFragment());
-        fragments.add(new NewsTimeNewsFragment());
-        fragments.add(new NewsMilitaryFragment());
-        fragments.add(new NewsFinanceFragment());
-        fragments.add(new NewsSportsFragment());
-        fragments.add(new NewsMoviesFragment());
-//        labs.add("娱乐");
-        labs.add("时事");
-        labs.add("军事");
-        labs.add("财经");
-        labs.add("体育");
-        labs.add("电影");
+        // Inflate the layout for this fragment
+        View mView = inflater.inflate(R.layout.fragment_news_military,null);
+        mWebView = (WebView) mView.findViewById(R.id.news_military_id);
+//        mWebView.loadDataWithBaseURL("","","utf-8","","");
+//        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.loadUrl("http://api.iclient.ifeng.com/mil/mili?vt=5&dh=touch&mid=aArXWQ");
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+        });
+        return mView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onNewsFragmentInteraction(uri);
+            mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -114,19 +92,11 @@ public class NewsFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnNewsFragmentInteractionListener) activity;
+            mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        fragments.clear();
-        labs.clear();
-
     }
 
     @Override
@@ -145,9 +115,9 @@ public class NewsFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnNewsFragmentInteractionListener {
+    public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onNewsFragmentInteraction(Uri uri);
+        public void onFragmentInteraction(Uri uri);
     }
 
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
@@ -27,6 +28,7 @@ public class ManitoBlogDetailActivity extends AppCompatActivity {
     private WebView mWebView;
     private LayoutInflater mInflater;
     private ProgressBar mProgressBar;
+    private WebSettings mWebSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +48,20 @@ public class ManitoBlogDetailActivity extends AppCompatActivity {
 
         mInflater = LayoutInflater.from(this);
         mWebView = (WebView) findViewById(R.id.manito_blog_detail_content);
+        mWebSettings = mWebView.getSettings();
+        mWebSettings.setSupportZoom(true); //缩放
+     /*   mWebSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小/
+        mWebSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+        mWebSettings.setDefaultTextEncodingName("utf-8");//默认字符集
+        mWebSettings.setLoadsImagesAutomatically(true);//支持自动加载图片
+        mWebSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);//支持内容重新布局*/
+
         mProgressBar = (ProgressBar) findViewById(R.id.test_processbar);
 //        mWebView.loadUrl("http://www.baidu.com");
 //        mWebView.loadData("2123", "text/html", "utf-8");
         String bid;
         bid = getIntent().getStringExtra(BLOG_ID);
-        if (bid!=null){
+        if (bid != null) {
 
             getData(bid);
         }
@@ -63,12 +73,12 @@ public class ManitoBlogDetailActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                new BlogDetalTask().execute("http://427studio.net/api/blog/"+bid,"100");
+                new BlogDetalTask().execute("http://427studio.net/api/blog/" + bid, "100");
             }
         }).start();
     }
 
-    class BlogDetalTask extends AsyncTask<String,Integer,String >{
+    class BlogDetalTask extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -76,8 +86,8 @@ public class ManitoBlogDetailActivity extends AppCompatActivity {
             try {
                 URL url = new URL(params[0]);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestProperty("charset","utf-8");
-                conn.setRequestProperty("Content-Type","application/json;charset=UTF-8");
+                conn.setRequestProperty("charset", "utf-8");
+                conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.setRequestMethod("GET");
@@ -87,9 +97,9 @@ public class ManitoBlogDetailActivity extends AppCompatActivity {
                 BufferedReader r = new BufferedReader(new InputStreamReader(in));
 
                 String line;
-                int i=1;
+                int i = 1;
 
-                while((line=r.readLine())!=null){
+                while ((line = r.readLine()) != null) {
                     publishProgress(i);
                     sb.append(line);
                     i++;
@@ -109,14 +119,14 @@ public class ManitoBlogDetailActivity extends AppCompatActivity {
             Gson gson = new Gson();
             Blog b = gson.fromJson(s, Blog.class);
             mProgressBar.setVisibility(View.GONE);
-            mWebView.loadDataWithBaseURL("",b.getContent(),"text/html","utf-8",null);
+            mWebView.loadDataWithBaseURL("", b.getContent(), "text/html", "utf-8", null);
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
 //            super.onProgressUpdate(values);
             int i = values[0];
-            Log.e(" 测试",""+i);
+            Log.e(" 测试", "" + i);
             mProgressBar.setProgress(i);
         }
     }

@@ -20,11 +20,17 @@ import android.widget.TextView;
 
 import cn.flydrm.fm.R;
 import cn.flydrm.fm.fragment.BlogFragment;
+import cn.flydrm.fm.fragment.NewsAmusementFragment;
+import cn.flydrm.fm.fragment.NewsFinanceFragment;
 import cn.flydrm.fm.fragment.NewsFragment;
+import cn.flydrm.fm.fragment.NewsMilitaryFragment;
+import cn.flydrm.fm.fragment.NewsMoviesFragment;
+import cn.flydrm.fm.fragment.NewsSportsFragment;
+import cn.flydrm.fm.fragment.NewsTimeNewsFragment;
 import cn.flydrm.fm.fragment.SosoFragment;
 import cn.flydrm.fm.fragment.ToolsFragment;
 
-public class MainActivity extends AppCompatActivity implements NewsFragment.OnNewsFragmentInteractionListener,BlogFragment.OnBlogFragmentInteractionListener,SosoFragment.OnSosoFragmentInteractionListener,ToolsFragment.OnToolsFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements NewsTimeNewsFragment.OnFragmentInteractionListener,NewsSportsFragment.OnFragmentInteractionListener,NewsMoviesFragment.OnFragmentInteractionListener,NewsMilitaryFragment.OnFragmentInteractionListener,NewsFinanceFragment.OnFragmentInteractionListener,NewsAmusementFragment.OnFragmentInteractionListener,NewsFragment.OnNewsFragmentInteractionListener,BlogFragment.OnBlogFragmentInteractionListener,SosoFragment.OnSosoFragmentInteractionListener,ToolsFragment.OnToolsFragmentInteractionListener{
 
     //标签类
     private Class[] tabFragments = new Class[]{NewsFragment.class, BlogFragment.class, SosoFragment.class, ToolsFragment.class};
@@ -129,6 +135,11 @@ public class MainActivity extends AppCompatActivity implements NewsFragment.OnNe
      * */
     @Override
     public void onNewsFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 
